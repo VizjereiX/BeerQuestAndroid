@@ -54,7 +54,8 @@ public class MainActivity extends Activity{
 			    getApp().setLoggedIn(false);
 			    authorize();
 			}
-		});		
+		});
+		
 		
 		
         //GPS
