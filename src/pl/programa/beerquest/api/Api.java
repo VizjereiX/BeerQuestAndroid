@@ -44,7 +44,7 @@ public class Api {
 	
 
 	public static void login(String token, Context appContext, ApiCallback callback) {
-		String loginJson = "{email:'email',google_id:'dsae321321'}";
+		String loginJson = "{email:\"email\",google_id:\"dsae321321\"}";
 		String url = API + CONTROLLER_LOGIN;
 		HttpRequestBase request = preparePostRequest(appContext, url, loginJson);
 		ApiAsyncTask apiAsyncTask = new ApiAsyncTask(request, callback);

@@ -129,7 +129,7 @@ ConnectionCallbacks, OnConnectionFailedListener{
     @Override
     protected void onStart() {
         super.onStart();
-        mPlusClient.connect();
+//        mPlusClient.connect();
     }
 
     @Override

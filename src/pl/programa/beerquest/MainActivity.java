@@ -46,6 +46,11 @@ public class MainActivity extends Activity{
 		
 		//get G+ client
 		mPlusClient = App.getMPlusClient();
+		if(mPlusClient == null){
+		    getApp().setLoggedIn(false);
+		    authorize();
+		}
+			
 		
 		setContentView(R.layout.activity_main);
 		
