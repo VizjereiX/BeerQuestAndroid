@@ -14,10 +14,10 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender.SendIntentException;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity{
@@ -37,22 +37,24 @@ public class MainActivity extends Activity{
 		
 		
 		//get G+ client
-		mPlusClient = getApp().getMPlusClient();
+		mPlusClient = App.getMPlusClient();
 		
-//		//init logout
-//		logoutButton =(Button) findViewById(R.id.actionBarLogout);
-//		logoutButton.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View view) {
-//			    if (view.getId() == R.id.actionBarLogout) {
-//			        if (mPlusClient.isConnected()) {
-//			            mPlusClient.clearDefaultAccount();
-//			            mPlusClient.disconnect();
-//			            mPlusClient.connect();
-//			        }
-//			    }	
-//			}
-//		});		
+		setContentView(R.layout.activity_main);
+		
+		//init logout
+		logoutButton =(Button) findViewById(R.id.actionBarLogout);
+		logoutButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+		        if (mPlusClient.isConnected()) {
+		            mPlusClient.clearDefaultAccount();
+		            mPlusClient.disconnect();
+					Toast.makeText(getApplicationContext(), "logout", Toast.LENGTH_SHORT).show();
+		        }
+			    getApp().setLoggedIn(false);
+			    authorize();
+			}
+		});		
 		
 		
         //GPS
@@ -77,7 +79,6 @@ public class MainActivity extends Activity{
         final MyTimerTask myTask = new MyTimerTask();
         final Timer myTimer = new Timer();
         myTimer.schedule(myTask, App.MILISEC_MAP_REFRESH, App.MILISEC_MAP_REFRESH);
-		setContentView(R.layout.activity_main);
 
 	}
 	

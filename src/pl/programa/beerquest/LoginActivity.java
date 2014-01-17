@@ -75,7 +75,7 @@ ConnectionCallbacks, OnConnectionFailedListener{
         // .setScopes("profile")       // alternative basic login scope
         .build();
         
-        getApp().setMPlusClient(mPlusClient);
+        App.setMPlusClient(mPlusClient);
         
 		// Progress bar to be displayed if the connection failure is not resolved.
 		mConnectionProgressDialog = new ProgressDialog(this);
@@ -84,6 +84,7 @@ ConnectionCallbacks, OnConnectionFailedListener{
 		loginButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				showProgress(true);
 //				attemptLogin();
 				if (view.getId() == R.id.login_button && !mPlusClient.isConnected()) {
 			        if (mConnectionResult == null) {
@@ -146,9 +147,9 @@ ConnectionCallbacks, OnConnectionFailedListener{
 	               // connection dialog.
 	               if (result.hasResolution()) {
 	                       try {
-	                               result.startResolutionForResult(this, REQUEST_CODE_RESOLVE_ERR);
+	                            result.startResolutionForResult(this, REQUEST_CODE_RESOLVE_ERR);
 	                       } catch (SendIntentException e) {
-	                               mPlusClient.connect();
+	                            mPlusClient.connect();
 	                       }
 	               }
 	       }

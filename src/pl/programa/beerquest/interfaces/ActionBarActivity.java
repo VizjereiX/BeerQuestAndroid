@@ -18,7 +18,7 @@ import android.widget.Button;
 public abstract class ActionBarActivity extends Fragment{
 
 	///parameters
-	Button actionBarBack;
+	Button actionBarLogout;
 	
 	
     @Override
@@ -26,8 +26,7 @@ public abstract class ActionBarActivity extends Fragment{
         Bundle savedInstanceState) {
     	App.logv("inflating action bar");
     	View view = inflater.inflate(R.layout.action_bar, container, false);
-    	
-    	
+    	    	
         return view;
     }	
 
