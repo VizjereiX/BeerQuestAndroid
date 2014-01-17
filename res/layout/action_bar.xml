@@ -1,0 +1,28 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout
+        android:id="@+id/actionBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal" >
+
+        
+        <TextView
+            android:id="@+id/actionBarTitle"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+       		android:textAppearance="?android:attr/textAppearanceMedium"
+       		android:layout_weight="1"
+			android:layout_marginLeft="5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:gravity="center"/>
+        
+        <Button
+            android:id="@+id/actionBarLogout"
+            android:layout_width="100dp"
+            android:layout_height="40dp"            
+            android:text="@string/logout"
+            android:layout_gravity="center_vertical" />        
+    </LinearLayout>
+</merge>
