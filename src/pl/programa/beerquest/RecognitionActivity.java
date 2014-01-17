@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import pl.itraff.TestApi.ItraffApi.ItraffApi;
+import pl.programa.beerquest.api.Api;
+import pl.programa.beerquest.api.ApiCallback;
 import pl.programa.beerquest.app.App;
 
 import android.annotation.SuppressLint;
@@ -19,6 +21,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.widget.Toast;
 
 public class RecognitionActivity extends Activity {
 
@@ -32,7 +35,13 @@ public class RecognitionActivity extends Activity {
 
 		outputFile = new File(Environment.getExternalStorageDirectory()
 				.getPath() + "/scan.jpg");
+		getImage();
+	}
+
+	protected void getImage() {
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+				Uri.fromFile(outputFile));
 		takePictureIntent.putExtra(MediaStore.EXTRA_FULL_SCREEN, true);
 		takePictureIntent.putExtra(MediaStore.EXTRA_SHOW_ACTION_ICONS, false);
 		startActivityForResult(takePictureIntent, 1234);
@@ -48,14 +57,29 @@ public class RecognitionActivity extends Activity {
 			if (data != null) {
 				Integer status = data.getInt(ItraffApi.STATUS, -1);
 				String response = data.getString(ItraffApi.RESPONSE);
-				// status ok
 				if (status == 0) {
-					App.logd(response);
+					String beerJson = response.replace("\"status\":0,", "");
+					final String beerName = beerJson.replace("{\"id\":", "").replace("}", "").replace("\"", "");
+					ApiCallback callback = new ApiCallback() {
+						
+						@Override
+						public void onResponse(Object response, Integer status, String message,
+								Integer httpStatus) {
+							if (status == 0  || status == 200) {
+								Toast.makeText(App.getContext(), beerName + " padł pod Twymi ciosami!", Toast.LENGTH_SHORT).show();
+							} else {
+								Toast.makeText(App.getContext(), message, Toast.LENGTH_SHORT).show();
+							}
+						}
+					};
+					Api.recognize(beerJson, App.getContext(), callback);
 					// application error (for example timeout)
 				} else if (status == -1) {
-
-					// error from api
+					Toast.makeText(App.getContext(), "Zlamał Ci sie miecz, spróbuj jeszcze raz!", Toast.LENGTH_SHORT).show();
+					getImage();
 				} else {
+					Toast.makeText(App.getContext(), "Nie znam tej bestii!", Toast.LENGTH_SHORT).show();
+					getImage();
 				}
 			}
 		}
@@ -63,9 +87,8 @@ public class RecognitionActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		App.logv("RES");
 		if (resultCode == Activity.RESULT_OK) {
-			Bitmap image = null; // (Bitmap) bundle.get("data");
+			Bitmap image = null;
 			App.logv("RES_OK");
 			FileInputStream fis = null;
 			try {
@@ -73,10 +96,11 @@ public class RecognitionActivity extends Activity {
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
-			image = BitmapFactory.decodeStream(fis);
+			BitmapFactory.Options options=new BitmapFactory.Options();
+            options.inSampleSize = 4;
+			image = BitmapFactory.decodeStream(fis, null, options);
 			if (image != null) {
 				ItraffApi api = new ItraffApi(ID, KEY, App.TAG, true);
-				api.setMode(ItraffApi.MODE_SINGLE);
 
 				ByteArrayOutputStream stream = new ByteArrayOutputStream();
 				image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -84,6 +108,5 @@ public class RecognitionActivity extends Activity {
 				api.sendPhoto(pictureData, itraffApiHandler, false);
 			}
 		}
-		App.logv("RES_OTHER");
 	}
 }
