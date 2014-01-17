@@ -164,6 +164,21 @@ ConnectionCallbacks, OnConnectionFailedListener{
 		getApp().setLoggedIn(true);
 	 // We've resolved any connection errors.
 	  mConnectionProgressDialog.dismiss();
+	  Api.login("asddasdas", getApplicationContext(),new ApiCallback() {
+			@Override
+			public void onResponse(Object response, Integer status, String message, Integer httpStatus) {
+				App.logv("sending login to api callback");
+	            if(httpStatus.equals(200)){
+	            	try{
+		            	App.logv("try catch login RESPONESE: " + response.toString());
+			            JSONObject responseJson = (JSONObject) response;
+						Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+	            	} catch(Exception e) {
+	            		App.logv("error parsing JSON");
+	            	}
+	            };
+			}
+	    });
 	  Toast.makeText(this, "User is connected!", Toast.LENGTH_LONG).show();
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);

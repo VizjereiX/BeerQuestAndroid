@@ -21,16 +21,18 @@ import android.content.Context;
 public class Api {
 
 	//local API
-	public static final String API = "http://beerquest.a.dev.programa.pl/api/";
+	public static final String API = "http://beerquest.a.ext.programa.pl/api/";
 	
-	public static final String HEADER = "x-beerquest-token";
+	public static final String HEADER = "http-x-bq-token";
 	public static final String STATUS = "status";
 	public static final String DATA = "data";
 	public static final String MESSAGE = "message";
 
 	//controllers names
-	public static final String CONTROLLER_LOGIN = "login";
+	public static final String CONTROLLER_LOGIN = "user/login";
 	public static final String CONTROLLER_TEST = "test";
+	
+	public static final String token = "#beerquest#"; 
 
 	public static final String UTF8 = "UTF-8";
 	public static final String ACCEPT = "Accept";
@@ -41,9 +43,8 @@ public class Api {
 	}
 	
 
-	public static void login(String email, Context appContext, ApiCallback callback) {
-		Login login = new Login(email);
-		String loginJson = JsonHelper.getGson().toJson(login);
+	public static void login(String token, Context appContext, ApiCallback callback) {
+		String loginJson = "{email:'email',google_id:'dsae321321'}";
 		String url = API + CONTROLLER_LOGIN;
 		HttpRequestBase request = preparePostRequest(appContext, url, loginJson);
 		ApiAsyncTask apiAsyncTask = new ApiAsyncTask(request, callback);
