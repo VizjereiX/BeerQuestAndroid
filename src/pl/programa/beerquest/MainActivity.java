@@ -9,6 +9,14 @@ import com.google.android.gms.plus.PlusClient;
 
 import pl.programa.beerquest.app.App;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -39,7 +47,16 @@ public class MainActivity extends Activity {
 
 		// get G+ client
 		mPlusClient = App.getMPlusClient();
+<<<<<<< HEAD
 
+=======
+		if(mPlusClient == null){
+		    getApp().setLoggedIn(false);
+		    authorize();
+		}
+			
+		
+>>>>>>> fbccdcc6ccd8874be0725d4bbdcd242ed8cca091
 		setContentView(R.layout.activity_main);
 
 		// init logout
@@ -58,6 +75,11 @@ public class MainActivity extends Activity {
 				authorize();
 			}
 		});
+<<<<<<< HEAD
+=======
+		
+		
+>>>>>>> fbccdcc6ccd8874be0725d4bbdcd242ed8cca091
 		
 		newQuestButton.setOnClickListener(new OnClickListener() {
 			

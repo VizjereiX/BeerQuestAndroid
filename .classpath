@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry exported="true" kind="lib" path="libs/android-support-v4.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/google-play-services.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/gson.jar"/>
+	<classpathentry kind="lib" path="libs/itraffApi_v2.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="libs/android-support-v4.jar"/>
 	<classpathentry kind="lib" path="libs/gson.jar"/>
 	<classpathentry kind="lib" path="libs/itraffApi_v2.jar"/>
+=======
+>>>>>>> fbccdcc6ccd8874be0725d4bbdcd242ed8cca091
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
