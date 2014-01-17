@@ -1,5 +1,7 @@
 package pl.programa.beerquest.api;
 
+import java.util.Random;
+
 import org.apache.http.Header;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -21,7 +23,7 @@ import android.content.Context;
 public class Api {
 
 	//local API
-	public static final String API = "http://beerquest.a.dev.programa.pl/api/";
+	public static final String API = "http://beerquest.a.ext.programa.pl/api/";
 	
 	public static final String HEADER = "x-beerquest-token";
 	public static final String STATUS = "status";
@@ -30,6 +32,7 @@ public class Api {
 
 	//controllers names
 	public static final String CONTROLLER_LOGIN = "login";
+	public static final String CONTROLLER_RECOGNIZE = "quest:%%/monster";
 	public static final String CONTROLLER_TEST = "test";
 
 	public static final String UTF8 = "UTF-8";
@@ -46,6 +49,13 @@ public class Api {
 		String loginJson = JsonHelper.getGson().toJson(login);
 		String url = API + CONTROLLER_LOGIN;
 		HttpRequestBase request = preparePostRequest(appContext, url, loginJson);
+		ApiAsyncTask apiAsyncTask = new ApiAsyncTask(request, callback);
+		apiAsyncTask.execute();
+	}
+	
+	public static void recognize(String idJson, Context appContext, ApiCallback callback) {
+		String url = API + CONTROLLER_RECOGNIZE.replace("%%", Math.abs(new Random().nextInt()) +"");
+		HttpRequestBase request = preparePostRequest(appContext, url, idJson);
 		ApiAsyncTask apiAsyncTask = new ApiAsyncTask(request, callback);
 		apiAsyncTask.execute();
 	}
