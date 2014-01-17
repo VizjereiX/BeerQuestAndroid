@@ -12,7 +12,6 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 
 import pl.programa.beerquest.app.App;
-import pl.programa.beerquest.model.Login;
 import pl.programa.beerquest.model.Quest;
 import pl.programa.beerquest.utils.JsonHelper;
 import android.content.Context;
@@ -32,8 +31,9 @@ public class Api {
 	public static final String MESSAGE = "message";
 
 	//controllers names
-	public static final String CONTROLLER_RECOGNIZE = "quest:%%/monster";
+
 	public static final String CONTROLLER_LOGIN = "user/login";
+	public static final String CONTROLLER_RECOGNIZE = "quest:%%/monster";
 	public static final String CONTROLLER_TEST = "test";
 	
 	public static final String token = "#beerquest#"; 

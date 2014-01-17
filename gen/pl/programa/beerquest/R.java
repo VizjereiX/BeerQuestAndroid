@@ -194,27 +194,29 @@ containing a value of this type.
     public static final class id {
         public static final int actionBar=0x7f060005;
         public static final int actionBarLogout=0x7f060006;
-        public static final int action_settings=0x7f060016;
-        public static final int alertTitle=0x7f060011;
-        public static final int apitest_button=0x7f06000b;
-        public static final int contentPanel=0x7f060013;
-        public static final int customPanel=0x7f060015;
+        public static final int actionBarNewQuest=0x7f060007;
+        public static final int action_settings=0x7f060018;
+        public static final int alertTitle=0x7f060013;
+        public static final int apitest_button=0x7f06000c;
+        public static final int buttonNewQuest=0x7f06000e;
+        public static final int contentPanel=0x7f060015;
+        public static final int customPanel=0x7f060017;
         public static final int hybrid=0x7f060004;
-        public static final int icon=0x7f060010;
-        public static final int login_button=0x7f06000c;
-        public static final int login_form=0x7f060009;
-        public static final int login_status=0x7f060007;
-        public static final int login_status_message=0x7f060008;
-        public static final int logo=0x7f06000a;
-        public static final int message=0x7f060014;
+        public static final int icon=0x7f060012;
+        public static final int login_button=0x7f06000d;
+        public static final int login_form=0x7f06000a;
+        public static final int login_status=0x7f060008;
+        public static final int login_status_message=0x7f060009;
+        public static final int logo=0x7f06000b;
+        public static final int message=0x7f060016;
         public static final int none=0x7f060000;
         public static final int normal=0x7f060001;
-        public static final int parentPanel=0x7f06000d;
+        public static final int parentPanel=0x7f06000f;
         public static final int satellite=0x7f060002;
         public static final int terrain=0x7f060003;
-        public static final int titleDivider=0x7f060012;
-        public static final int title_template=0x7f06000f;
-        public static final int topPanel=0x7f06000e;
+        public static final int titleDivider=0x7f060014;
+        public static final int title_template=0x7f060011;
+        public static final int topPanel=0x7f060010;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;
@@ -223,48 +225,51 @@ containing a value of this type.
         public static final int action_bar=0x7f030000;
         public static final int activity_login=0x7f030001;
         public static final int activity_main=0x7f030002;
-        public static final int qustom_dialog_layout=0x7f030003;
+        public static final int activity_new_quest=0x7f030003;
+        public static final int qustom_dialog_layout=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f0a0000;
     }
     public static final class string {
-        public static final int answer_title=0x7f070010;
+        public static final int answer_title=0x7f070012;
         public static final int app_name=0x7f070000;
         public static final int cancel=0x7f070002;
-        public static final int counter_state_sending_progress=0x7f070007;
-        public static final int error_field_required=0x7f07001a;
-        public static final int error_incorrect_password=0x7f070019;
-        public static final int error_invalid_email=0x7f070017;
-        public static final int error_invalid_password=0x7f070018;
-        public static final int header_about=0x7f070009;
+        public static final int counter_state_sending_progress=0x7f070009;
+        public static final int error_field_required=0x7f07001c;
+        public static final int error_incorrect_password=0x7f07001b;
+        public static final int error_invalid_email=0x7f070019;
+        public static final int error_invalid_password=0x7f07001a;
+        public static final int header_about=0x7f07000b;
         /**  header titles 
          */
-        public static final int header_main=0x7f070008;
+        public static final int header_main=0x7f07000a;
         /**   
          */
-        public static final int id_token_parse_error=0x7f07000a;
-        public static final int invalid_password=0x7f07000b;
-        public static final int login=0x7f070015;
+        public static final int id_token_parse_error=0x7f07000c;
+        public static final int invalid_password=0x7f07000d;
+        public static final int login=0x7f070017;
         public static final int login_google=0x7f070003;
-        public static final int login_progress_signing_in=0x7f070016;
-        public static final int login_tv=0x7f07001b;
+        public static final int login_progress_signing_in=0x7f070018;
+        public static final int login_tv=0x7f07001d;
         public static final int logout=0x7f070004;
+        public static final int new_quest=0x7f070007;
+        public static final int new_quest_confirm=0x7f070008;
         public static final int no_internet_connection=0x7f070005;
-        public static final int no_items_to_sync_title=0x7f070011;
+        public static final int no_items_to_sync_title=0x7f070013;
         public static final int ok=0x7f070001;
         /**  Strings related to login 
          */
-        public static final int prompt_login=0x7f070013;
-        public static final int prompt_password=0x7f070014;
-        public static final int res_errors=0x7f070012;
+        public static final int prompt_login=0x7f070015;
+        public static final int prompt_password=0x7f070016;
+        public static final int res_errors=0x7f070014;
         public static final int send=0x7f070006;
-        public static final int user_inactive=0x7f07000d;
-        public static final int user_not_found=0x7f07000c;
+        public static final int user_inactive=0x7f07000f;
+        public static final int user_not_found=0x7f07000e;
         /**  Sync 
          */
-        public static final int waiting_text=0x7f07000e;
-        public static final int waiting_text_title=0x7f07000f;
+        public static final int waiting_text=0x7f070010;
+        public static final int waiting_text_title=0x7f070011;
     }
     public static final class style {
         public static final int AlertDialogCustom=0x7f080004;

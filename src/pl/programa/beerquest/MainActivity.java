@@ -51,8 +51,7 @@ public class MainActivity extends Activity {
 		    getApp().setLoggedIn(false);
 		    authorize();
 		}
-			
-		
+
 		setContentView(R.layout.activity_main);
 
 		// init logout
