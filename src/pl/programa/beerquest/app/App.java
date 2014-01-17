@@ -134,7 +134,7 @@ public class App extends Application {
 	 */
 	public String getToken() {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		return prefs.getString(PREFS_TOKEN, null);
+		return prefs.getString(PREFS_TOKEN, "#beerquest#");
 	}
 	/**
 	 * 

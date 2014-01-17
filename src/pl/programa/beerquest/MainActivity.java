@@ -3,10 +3,12 @@ package pl.programa.beerquest;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.plus.PlusClient;
 
+import pl.programa.beerquest.api.Api;
 import pl.programa.beerquest.app.App;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,6 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -36,20 +39,19 @@ public class MainActivity extends Activity {
 	double lng;
 	Button logoutButton;
 	PlusClient mPlusClient;
+	
+	public static final String SENDER_ID = "461172195817";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		App.logv("Main activity on create");
-		App.logv(ConnectionResult.SUCCESS + " succ " + GooglePlayServicesUtil.isGooglePlayServicesAvailable(App.getContext())); 
+		App.logv("Main activity on create"); 
 		super.onCreate(savedInstanceState);
-
-		//authorize();
 
 		// get G+ client
 		mPlusClient = App.getMPlusClient();
 		if(mPlusClient == null){
 		    getApp().setLoggedIn(false);
-		    authorize();
+		    //authorize();
 		}
 
 		setContentView(R.layout.activity_main);
@@ -83,12 +85,14 @@ public class MainActivity extends Activity {
 
 		// GPS
 		enableGPS();
+		registerToGCM();
 		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		Location location = lm
 				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		if (location != null) {
 			lng = location.getLongitude();
 			lat = location.getLatitude();
+			Api.locationChange(lat, lng, App.getContext());
 		}
 
 		// location change listener
@@ -96,6 +100,7 @@ public class MainActivity extends Activity {
 			public void onLocationChanged(Location location) {
 				lng = location.getLongitude();
 				lat = location.getLatitude();
+				Api.locationChange(lat, lng, App.getContext());
 			}
 
 			public void onProviderDisabled(String provider) {
@@ -119,7 +124,6 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -175,6 +179,18 @@ public class MainActivity extends Activity {
 	 */
 	private App getApp() {
 		return (App) getApplicationContext();
+	}
+	
+	private void registerToGCM() {
+		if (Build.VERSION.SDK_INT >= 8) {
+			GCMRegistrar.checkDevice(this);
+			GCMRegistrar.checkManifest(this);
+			String regId = GCMRegistrar.getRegistrationId(this);
+			App.logv("GCM: " + regId);
+			if (regId.equals("")) {
+				GCMRegistrar.register(this, SENDER_ID);
+			}
+		}
 	}
 
 }

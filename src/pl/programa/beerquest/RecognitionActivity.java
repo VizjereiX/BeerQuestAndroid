@@ -15,12 +15,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class RecognitionActivity extends Activity {
@@ -28,10 +30,16 @@ public class RecognitionActivity extends Activity {
 	public static final int ID = 42564;
 	public static final String KEY = "a40efa0f3b";
 	private File outputFile;
+	private AnimationDrawable anim;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_recognize);
+		 ImageView bgImage= (ImageView) findViewById(R.id.recognize_bg);
+		  bgImage.setBackgroundResource(R.drawable.spinner);
+		  anim = (AnimationDrawable) bgImage.getBackground();
+		  anim.start();
 
 		outputFile = new File(Environment.getExternalStorageDirectory()
 				.getPath() + "/scan.jpg");
@@ -70,6 +78,7 @@ public class RecognitionActivity extends Activity {
 							} else {
 								Toast.makeText(App.getContext(), message, Toast.LENGTH_SHORT).show();
 							}
+							anim.stop();
 						}
 					};
 					Api.recognize(beerJson, App.getContext(), callback);
@@ -97,7 +106,7 @@ public class RecognitionActivity extends Activity {
 				e.printStackTrace();
 			}
 			BitmapFactory.Options options=new BitmapFactory.Options();
-            options.inSampleSize = 4;
+            options.inSampleSize = 8;
 			image = BitmapFactory.decodeStream(fis, null, options);
 			if (image != null) {
 				ItraffApi api = new ItraffApi(ID, KEY, App.TAG, true);
@@ -106,6 +115,8 @@ public class RecognitionActivity extends Activity {
 				image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 				byte[] pictureData = stream.toByteArray();
 				api.sendPhoto(pictureData, itraffApiHandler, false);
+				pictureData = null;
+				System.gc();
 			}
 		}
 	}

@@ -21,7 +21,7 @@ import android.os.AsyncTask;
 public class ApiAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 
 	private final static String ERROR_PARSE = "Blad parsowania odpowiedzi";
-	private final static String ERROR_INCOMPLETE = "B³êdne dane logowania";
+	private final static String ERROR_INCOMPLETE = "BÅ‚Ä™dne dane logowania";
 
 	ApiCallback callback;
 	Boolean isSuccess;
@@ -54,25 +54,30 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 				} catch (Exception e) {
 					data = response.getJSONObject(Api.DATA);
 				}
-				callback.onResponse(data, status, "", httpStatus);
+				if (callback != null)
+					callback.onResponse(data, status, "", httpStatus);
 			} else {
 				// ERROR, get message
 				String message = response.getString(Api.MESSAGE);
-				callback.onResponse(null, status, message, httpStatus);
+				if (callback != null)
+					callback.onResponse(null, status, message, httpStatus);
 			}
 		} catch (JSONException e) {
 			App.logv("JSON COUNTER RESPONSE: " + response);
 			e.printStackTrace();
 			App.logv(e.toString());
-			callback.onResponse(null, -1, ERROR_PARSE, httpStatus);
+			if (callback != null)
+				callback.onResponse(null, -1, ERROR_PARSE, httpStatus);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			App.logv(data + " Null pointer exception: " + e.toString());
-			callback.onResponse(null, 1, ERROR_INCOMPLETE, httpStatus);
+			if (callback != null)
+				callback.onResponse(null, 1, ERROR_INCOMPLETE, httpStatus);
 		} catch (Exception e) {
 			e.printStackTrace();
 			App.logv(data + "Other exception: " + e.toString());
-			callback.onResponse(null, -1, ERROR_INCOMPLETE, httpStatus);
+			if (callback != null)
+				callback.onResponse(null, -1, ERROR_INCOMPLETE, httpStatus);
 		}
 	}
 
