@@ -47,16 +47,11 @@ public class MainActivity extends Activity {
 
 		// get G+ client
 		mPlusClient = App.getMPlusClient();
-<<<<<<< HEAD
-
-=======
 		if(mPlusClient == null){
 		    getApp().setLoggedIn(false);
 		    authorize();
 		}
 			
-		
->>>>>>> fbccdcc6ccd8874be0725d4bbdcd242ed8cca091
 		setContentView(R.layout.activity_main);
 
 		// init logout
@@ -75,11 +70,6 @@ public class MainActivity extends Activity {
 				authorize();
 			}
 		});
-<<<<<<< HEAD
-=======
-		
-		
->>>>>>> fbccdcc6ccd8874be0725d4bbdcd242ed8cca091
 		
 		newQuestButton.setOnClickListener(new OnClickListener() {
 			
