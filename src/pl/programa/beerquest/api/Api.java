@@ -13,6 +13,7 @@ import org.apache.http.protocol.HTTP;
 
 import pl.programa.beerquest.app.App;
 import pl.programa.beerquest.model.Login;
+import pl.programa.beerquest.model.Quest;
 import pl.programa.beerquest.utils.JsonHelper;
 import android.content.Context;
 
@@ -38,6 +39,8 @@ public class Api {
 	public static final String UTF8 = "UTF-8";
 	public static final String ACCEPT = "Accept";
 	public static final String APPLICATION_JSON = "application/json";
+
+	private static final String CONTROLLER_QUEST_NEW = "quest/new";
 	
 	public static void sendSomething (String jasonString, Context appContext, ApiCallback callback){
 		Api.sendPostJson(jasonString, API + CONTROLLER_TEST, appContext, callback);            
@@ -99,5 +102,15 @@ public class Api {
 
 	private static App getApp(Context appContext) {
 		return (App) appContext;
+	}
+
+
+	public static void questNew(Quest quest, Context appContext,
+			ApiCallback callback) {
+		String url = API + CONTROLLER_QUEST_NEW;
+		String json = JsonHelper.getGson().toJson(quest);
+		HttpRequestBase request = preparePostRequest(appContext, url, json);
+		ApiAsyncTask apiAsyncTask = new ApiAsyncTask(request, callback);
+		apiAsyncTask.execute();		
 	}
 }

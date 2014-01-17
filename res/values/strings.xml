@@ -8,6 +8,10 @@
     <string name="logout">Wyloguj</string>
     <string name="no_internet_connection">Brak dostępu do sieci</string> 
     <string name="send">Wyślij</string>
+    <string name="new_quest">Nowy quest</string>
+	<string name="new_quest_confirm">Zwołaj towarzyszy broni!</string>
+    
+    
 
     <string name="counter_state_sending_progress">Wysyłanie...</string>
   
