@@ -84,21 +84,23 @@ ConnectionCallbacks, OnConnectionFailedListener{
 		loginButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				showProgress(true);
-//				attemptLogin();
-				if (view.getId() == R.id.login_button && !mPlusClient.isConnected()) {
-			        if (mConnectionResult == null) {
-			            mConnectionProgressDialog.show();
-			        } else {
-			            try {
-			                mConnectionResult.startResolutionForResult(LoginActivity.this, REQUEST_CODE_RESOLVE_ERR);
-			            } catch (SendIntentException e) {
-			                // Try connecting again.
-			                mConnectionResult = null;
-			                mPlusClient.connect();
-			            }
-			        }
-			    }
+				if(InternetHelper.getInternetInfo(getApplicationContext())){
+					showProgress(true);
+	//				attemptLogin();
+					if (view.getId() == R.id.login_button && !mPlusClient.isConnected()) {
+				        if (mConnectionResult == null) {
+				            mConnectionProgressDialog.show();
+				        } else {
+				            try {
+				                mConnectionResult.startResolutionForResult(LoginActivity.this, REQUEST_CODE_RESOLVE_ERR);
+				            } catch (SendIntentException e) {
+				                // Try connecting again.
+				                mConnectionResult = null;
+				                mPlusClient.connect();
+				            }
+				        }
+				    }
+				}	
 				
 			}
 		});
@@ -129,7 +131,7 @@ ConnectionCallbacks, OnConnectionFailedListener{
     @Override
     protected void onStart() {
         super.onStart();
-//        mPlusClient.connect();
+        mPlusClient.connect();
     }
 
     @Override
@@ -164,7 +166,7 @@ ConnectionCallbacks, OnConnectionFailedListener{
 		getApp().setLoggedIn(true);
 	 // We've resolved any connection errors.
 	  mConnectionProgressDialog.dismiss();
-	  Api.login("asddasdas", getApplicationContext(),new ApiCallback() {
+	  Api.login(mPlusClient.getAccountName(), getApplicationContext(),new ApiCallback() {
 			@Override
 			public void onResponse(Object response, Integer status, String message, Integer httpStatus) {
 				App.logv("sending login to api callback");
