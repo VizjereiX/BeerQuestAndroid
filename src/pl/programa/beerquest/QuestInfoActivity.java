@@ -69,6 +69,7 @@ public class QuestInfoActivity extends Activity {
 					String message, Integer httpStatus) {
 				if (status == 0 || status == 200) {
 					Quest quest = Quest.fromJson(response.toString());
+					App.logv("quest: " + response.toString());
 					QuestInfoActivity.this.showQuest(quest);
 				} else {
 					Toast.makeText(App.getContext(), message,
@@ -96,8 +97,9 @@ public class QuestInfoActivity extends Activity {
 
 	protected void showQuest(Quest quest) {
 		layout.setVisibility(View.VISIBLE);
-		bgImage.setVisibility(View.GONE);
 		anim.stop();
+		bgImage.setVisibility(View.GONE);
+		bgImage.setBackgroundDrawable(null);
 		title.setText(quest.getName());
 		if (quest.getStatus().equalsIgnoreCase(Quest.STATUS_ACTIVE)) {
 			startDate.setText("Przygoda trwa!");
@@ -105,13 +107,10 @@ public class QuestInfoActivity extends Activity {
 		} else if (quest.getStatus().equalsIgnoreCase(Quest.STATUS_DONE)) {
 			startDate.setText("Przygoda zakończona!");
 		} else {
-			Date date = new Date(quest.getStartTs() * 1000);
-			SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy HH:ii");
-			startDate.setText("Drużyna wyruszy " + format.format(date));
+			startDate.setText("Drużyna wyruszy " + quest.getStartTs());
 			if (quest.getStatus().equalsIgnoreCase(Quest.STATUS_NEW)) {
-				date = new Date(quest.getConfirmTs() * 1000);
-				confirmDate.setText("jeśli do " + format.format(date)
-						+ "zbierze się " + quest.getMinGuests() + " osób");
+				confirmDate.setText("jeśli do " + quest.getConfirmTs() 
+						+ " zbierze się " + quest.getMinGuests() + " osób");
 				confirmDate.setVisibility(View.VISIBLE);
 				participants.setText("Aktualny stan potwierdzeń: "
 						+ quest.getMembers().length + "/"

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Nazwa" >
+        android:hint="Nazwa"
+        android:text="Nazwa" >
 
         <requestFocus />
     </EditText>
@@ -22,7 +23,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Data startu"
-        android:inputType="date" />
+        android:inputType="date"
+        android:text="18-01-2014" />
 
     <EditText
         android:id="@+id/newQuest_startTime"
@@ -30,6 +32,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Godzina startu"
+        android:text="18:00" 
         android:inputType="time" />
 
     <EditText
@@ -46,6 +49,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Czekam na ich miecze do godziny"
+        android:text="15:00" 
         android:inputType="time" />
     
     <Button

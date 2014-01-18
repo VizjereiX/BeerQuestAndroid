@@ -155,9 +155,6 @@ public class MainActivity extends Activity {
 						que = qList.getListQuests();
 						App.logv("QUEST length ------> " + que.length);
 
-						Toast.makeText(getApplicationContext(),
-								response.toString(), Toast.LENGTH_SHORT).show();
-
 					} catch (Exception e) {
 						App.logv("error parsing JSON ges Quests");
 					}

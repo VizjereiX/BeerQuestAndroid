@@ -160,6 +160,8 @@ public class Api {
 		String url = API + CONTROLLER_QUEST_INFO + ":" + id;
 		String json = "{}";
 		
+		App.logv(url);
+		
 		HttpRequestBase request = preparePostRequest(appContext, url, json);
 		ApiAsyncTask apiAsyncTask = new ApiAsyncTask(request, callback);
 		apiAsyncTask.execute();
