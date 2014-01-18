@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class Quest {
 
+	int id;
 	String name;
 	int startTs;
 	int type = 1;
@@ -23,9 +24,10 @@ public class Quest {
 	}
 	
 
-	public Quest(String name, int startTs, int type, int minGuests,
+	public Quest(int id, String name, int startTs, int type, int minGuests,
 			int confirmTs, String status, boolean participate) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.startTs = startTs;
 		this.type = type;
@@ -83,6 +85,14 @@ public class Quest {
 
 	public void setConfirmTs(int confirmTs) {
 		this.confirmTs = confirmTs;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return this.id;
 	}
 
 }

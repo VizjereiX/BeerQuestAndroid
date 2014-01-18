@@ -51,6 +51,8 @@ public class Api {
 
 	private static final String CONTROLLER_USER_LOCATION = "user/location";
 
+	private static final String CONTROLLER_QUEST_INFO = "quest";
+
 	public static void sendSomething(String jasonString, Context appContext,
 			ApiCallback callback) {
 		Api.sendPostJson(jasonString, API + CONTROLLER_TEST, appContext,
@@ -140,12 +142,7 @@ public class Api {
 		String url = API + CONTROLLER_REGISTER;
 		String json = "{\"push_type\":\"android\", \"push_id\":\"" + regId + "\"}";
 		HttpRequestBase request = preparePostRequest(appContext, url, json);
-		ApiAsyncTask apiAsyncTask = new ApiAsyncTask(request,
-				new ApiCallback() {
-					@Override
-					public void onResponse(Object response, Integer status,
-							String message, Integer httpStatus) {}
-				});
+		ApiAsyncTask apiAsyncTask = new ApiAsyncTask(request, null);
 		apiAsyncTask.execute();
 	}
 
@@ -155,6 +152,16 @@ public class Api {
 		
 		HttpRequestBase request = preparePostRequest(appContext, url, json);
 		ApiAsyncTask apiAsyncTask = new ApiAsyncTask(request, null);
+		apiAsyncTask.execute();
+	}
+
+
+	public static void questInfo(int id, Context appContext, ApiCallback callback) {
+		String url = API + CONTROLLER_QUEST_INFO + ":" + id;
+		String json = "{}";
+		
+		HttpRequestBase request = preparePostRequest(appContext, url, json);
+		ApiAsyncTask apiAsyncTask = new ApiAsyncTask(request, callback);
 		apiAsyncTask.execute();
 	}
 }
