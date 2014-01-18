@@ -1,5 +1,10 @@
 package pl.programa.beerquest;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import pl.programa.beerquest.api.Api;
 import pl.programa.beerquest.api.ApiCallback;
 import pl.programa.beerquest.app.App;
@@ -8,15 +13,28 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class NewQuestActivity extends Activity {
 
 	
+	private TextView questNameView;
+	private TextView questDateView;
+	private TextView questTimeView;
+	private TextView questConfirmView;
+	private TextView questTeamSizeView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_quest);
+		questNameView = (TextView) findViewById(R.id.newQuest_name);
+		questDateView = (TextView) findViewById(R.id.newQuest_startDate);
+		questTimeView = (TextView) findViewById(R.id.newQuest_startTime);
+		questConfirmView = (TextView) findViewById(R.id.newQuest_confirmTime);
+		questTeamSizeView = (TextView) findViewById(R.id.newQuest_minTeamSize);
+		
 		Button newQuestButton = (Button) findViewById(R.id.buttonNewQuest);
 		newQuestButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -34,7 +52,22 @@ public class NewQuestActivity extends Activity {
 						}
 					}
 				};
-				Api.questNew(new Quest(), App.getContext(), callback);
+				Quest quest = new Quest();
+				quest.setName(NewQuestActivity.this.questNameView.getText().toString());
+				
+				String str_date = NewQuestActivity.this.questDateView.getText().toString();
+				str_date += " " + NewQuestActivity.this.questTimeView.getText().toString();
+				int ts = (int) Date.parse(str_date);
+				quest.setStartTs(ts);
+				
+				str_date = NewQuestActivity.this.questDateView.getText().toString();
+				str_date += " " + NewQuestActivity.this.questConfirmView.getText().toString();
+				ts = (int) Date.parse(str_date);
+				quest.setConfirmTs(ts);
+				
+				quest.setMinGuests(Integer.parseInt(NewQuestActivity.this.questTeamSizeView.getText().toString()));
+				
+				Api.questNew(quest, App.getContext(), callback);
 			}
 		});
 	}

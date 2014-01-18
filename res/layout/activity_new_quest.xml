@@ -6,6 +6,48 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
+    <EditText
+        android:id="@+id/newQuest_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Nazwa" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/newQuest_startDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Data startu"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/newQuest_startTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Godzina startu"
+        android:inputType="time" />
+
+    <EditText
+        android:id="@+id/newQuest_minTeamSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Minimalny rozmiar drużyny"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/newQuest_confirmTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Czekam na ich miecze do godziny"
+        android:inputType="time" />
+    
     <Button
         android:id="@+id/buttonNewQuest"
         android:layout_width="100dp"
