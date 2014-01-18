@@ -2,6 +2,8 @@ package pl.programa.beerquest.model;
 
 import java.util.Random;
 
+import com.google.gson.Gson;
+
 public class Quest {
 
 	int id;
@@ -12,6 +14,11 @@ public class Quest {
 	int confirmTs;
 	String status;
 	boolean participate;
+	
+	public static final String STATUS_NEW = "new";
+	public static final String STATUS_CONFIRMED = "confirmed";
+	public static final String STATUS_ACTIVE = "active";
+	public static final String STATUS_DONE = "done";
 
 	/**
 	 * 
@@ -22,7 +29,6 @@ public class Quest {
 		confirmTs = 1390071600 + new Random().nextInt(100);
 		minGuests = 2;
 	}
-	
 
 	public Quest(int id, String name, int startTs, int type, int minGuests,
 			int confirmTs, String status, boolean participate) {
@@ -44,7 +50,7 @@ public class Quest {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getStatus() {
 		return status;
 	}
@@ -52,6 +58,7 @@ public class Quest {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 	public boolean getParticipate() {
 		return participate;
 	}
@@ -59,6 +66,7 @@ public class Quest {
 	public void setParticipate(boolean participate) {
 		this.participate = participate;
 	}
+
 	public int getStartTs() {
 		return startTs;
 	}
@@ -95,4 +103,7 @@ public class Quest {
 		return this.id;
 	}
 
+	public static Quest  fromJson(String json) {
+		return new Gson().fromJson(json, Quest.class);
+	}
 }
