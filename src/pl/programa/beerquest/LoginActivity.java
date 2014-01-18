@@ -67,6 +67,7 @@ ConnectionCallbacks, OnConnectionFailedListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
+		App.logv("Login activity");
 
 		setContentView(R.layout.activity_login);
 				

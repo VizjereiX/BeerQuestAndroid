@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
 		mPlusClient = App.getMPlusClient();
 		if (mPlusClient == null) {
 			getApp().setLoggedIn(false);
-			// authorize();
+			 authorize();
 		}
 
 		setContentView(R.layout.activity_main);
@@ -145,7 +145,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onResponse(Object response, Integer status,
 					String message, Integer httpStatus) {
-				App.logv("sending something to api callback");
+				App.logv("sending something to api callback");; 
 				//if (httpStatus.equals(200)) {
 					try {
 						App.logv("try catch get quests RESPONESE: "
@@ -161,7 +161,8 @@ public class MainActivity extends Activity {
 					} catch (Exception e) {
 						App.logv("error parsing JSON ges Quests");
 					}
-					String[] values = new String[10];
+					//ArraList values = new ArrayList();
+					String[] values = new String[que.length];
 					for (int i = 0; i < que.length; i++) {
 						questList.add(que[i]);
 						values[i] = que[i].getName();
