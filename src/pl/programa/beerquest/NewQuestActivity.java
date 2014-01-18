@@ -39,18 +39,10 @@ public class NewQuestActivity extends Activity {
 					@Override
 					public void onResponse(Object response, Integer status,
 							String message, Integer httpStatus) {
-						if (status == 0 || status == 200) {
-							App.setQ(Quest.fromJson(message));
-							Toast.makeText(App.getContext(),
-									"Towarzysze powiadomieni!",
-									Toast.LENGTH_SHORT).show();
-							Intent intent = new Intent(NewQuestActivity.this, QuestInfoActivity.class);
-							NewQuestActivity.this.startActivity(intent);
-							NewQuestActivity.this.finish();
-						} else {
-							Toast.makeText(App.getContext(), message,
-									Toast.LENGTH_SHORT).show();
-						}
+						Toast.makeText(App.getContext(),
+								"Wysyłam posłańców do towarzyszy!",
+								Toast.LENGTH_SHORT).show();
+						NewQuestActivity.this.finish();
 					}
 				};
 				Quest quest = new Quest();
