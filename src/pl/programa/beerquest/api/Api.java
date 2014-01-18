@@ -56,12 +56,8 @@ public class Api {
 	}
 
 
-<<<<<<< HEAD
 	public static void login(String name, Context appContext, ApiCallback callback) {
 		String token = App.getDeviceId(appContext);
-=======
-	public static void login(String name, String token, Context appContext, ApiCallback callback) {
->>>>>>> c043c8c3863df527e4cb2c8f078c4011cb7e36ea
 		String loginJson = "{\"email\":\"" + name + "\", \"google_id\":\"" + token + "\"}";
 		String url = API + CONTROLLER_LOGIN;
 		HttpRequestBase request = preparePostRequest(appContext, url, loginJson);
