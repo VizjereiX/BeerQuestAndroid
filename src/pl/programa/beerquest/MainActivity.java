@@ -130,10 +130,11 @@ public class MainActivity extends Activity {
 		///LIST
 		 final ListView listview = (ListView) findViewById(R.id.listview);
 		 
-		 
+		final ArrayList<Quest> questList = new ArrayList<Quest>();
 	 	String[] values = new String[10];
 	 	for(int i = 0; i<10 ; i++){
 	 		Quest q = new Quest();
+	 		questList.add(q);
 	 		values[i] = q.getName();
 	 	}
 	    final ArrayList<String> list = new ArrayList<String>();
@@ -149,7 +150,7 @@ public class MainActivity extends Activity {
 	      @Override
 	      public void onItemClick(AdapterView<?> parent, final View view,
 	          int position, long id) {
-	    	  //do sth onClick
+	    	  Toast.makeText(getApplicationContext(), "" + id, Toast.LENGTH_SHORT).show();
 	      }
 
 	    });

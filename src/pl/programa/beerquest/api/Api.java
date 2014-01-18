@@ -35,6 +35,7 @@ public class Api {
 
 	public static final String CONTROLLER_LOGIN = "user/login";
 	public static final String CONTROLLER_RECOGNIZE = "quest:%%/monster";
+	public static final String CONTROLLER_QUEST = "quest";	
 	public static final String CONTROLLER_TEST = "test";
 
 	public static final String token = "#beerquest#";
