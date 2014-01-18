@@ -164,4 +164,14 @@ public class Api {
 		ApiAsyncTask apiAsyncTask = new ApiAsyncTask(request, callback);
 		apiAsyncTask.execute();
 	}
+
+	public static void questParticipate(int questId, Context appContext,
+			ApiCallback callback) {
+		String url = API + CONTROLLER_QUEST_INFO + ":" + questId + "/participate";
+		String json = "{}";
+		
+		HttpRequestBase request = preparePostRequest(appContext, url, json);
+		ApiAsyncTask apiAsyncTask = new ApiAsyncTask(request, callback);
+		apiAsyncTask.execute();		
+	}
 }

@@ -3,7 +3,6 @@ package pl.programa.beerquest.app;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import com.google.android.gms.common.Scopes;
 import com.google.android.gms.plus.PlusClient;
 
 import pl.programa.beerquest.LoginActivity;
