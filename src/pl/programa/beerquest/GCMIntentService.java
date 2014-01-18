@@ -54,8 +54,8 @@ public class GCMIntentService extends
 				EventNotificationActivity.class);
 		notificationIntent.putExtra("text", contentTitle);
 		notificationIntent.putExtra("title", contentTitle);
-		notificationIntent.putExtra("body", intent.getExtras()
-				.getString("body"));
+		//notificationIntent.putExtra("body", intent.getExtras()
+		//		.getString("body"));
 		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		notificationIntent.addCategory(Intent.CATEGORY_HOME);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
