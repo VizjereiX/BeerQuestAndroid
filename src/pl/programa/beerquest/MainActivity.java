@@ -97,16 +97,7 @@ public class MainActivity extends Activity {
 		});
 
         
-        //init webview
-        webView = (WebView) findViewById(R.id.main_web_view);
-        webView.setWebViewClient(new WebViewClient());
-        //enable control JavaScript from app
-        webView.addJavascriptInterface(new WebAppInterface(MainActivity.this), "Android");
-        //handle user link clicks in thesame webview
-        webView.setWebViewClient(new WebViewClient());
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true); 
-//        webView.loadUrl("http://autostrada.z.dev.programa.pl/map");
+
         
         //enable JavaScript
    
@@ -158,6 +149,17 @@ public class MainActivity extends Activity {
 		final Timer myTimer = new Timer();
 		myTimer.schedule(myTask, App.MILISEC_MAP_REFRESH,
 				App.MILISEC_MAP_REFRESH);
+		
+        //init webview
+        webView = (WebView) findViewById(R.id.main_web_view);
+        webView.setWebViewClient(new WebViewClient());
+        //enable control JavaScript from app
+        webView.addJavascriptInterface(new WebAppInterface(MainActivity.this), "Android");
+        //handle user link clicks in thesame webview
+        webView.setWebViewClient(new WebViewClient());
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true); 
+        webView.loadUrl("https://maps.google.com/?t=h&ll=" + lat + "," + lng + "&t=h&z=16");
 
 		// /LIST
 		questList = new ArrayList<Quest>();
