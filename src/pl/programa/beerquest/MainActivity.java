@@ -8,12 +8,10 @@ import java.util.TimerTask;
 
 import org.json.JSONObject;
 
-
 import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.plus.PlusClient;
-
 
 import pl.programa.beerquest.api.Api;
 import pl.programa.beerquest.api.ApiCallback;
@@ -57,11 +55,11 @@ public class MainActivity extends Activity {
 	Button logoutButton;
 	PlusClient mPlusClient;
 	Quest[] que;
-	ArrayList<Quest> questList;	
+	ArrayList<Quest> questList;
 	ArrayList<String> list;
 	ListView listview;
 	WebView webView;
-	
+
 	public static final String SENDER_ID = "461172195817";
 
 	@Override
@@ -73,7 +71,7 @@ public class MainActivity extends Activity {
 		mPlusClient = App.getMPlusClient();
 		if (mPlusClient == null) {
 			getApp().setLoggedIn(false);
-			 authorize();
+			authorize();
 		}
 
 		setContentView(R.layout.activity_main);
@@ -96,21 +94,19 @@ public class MainActivity extends Activity {
 			}
 		});
 
-        
-        //init webview
-        webView = (WebView) findViewById(R.id.main_web_view);
-        webView.setWebViewClient(new WebViewClient());
-        //enable control JavaScript from app
-        webView.addJavascriptInterface(new WebAppInterface(MainActivity.this), "Android");
-        //handle user link clicks in thesame webview
-        webView.setWebViewClient(new WebViewClient());
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true); 
-//        webView.loadUrl("http://autostrada.z.dev.programa.pl/map");
-        
-        //enable JavaScript
-   
+		// init webview
+		webView = (WebView) findViewById(R.id.main_web_view);
+		webView.setWebViewClient(new WebViewClient());
+		// enable control JavaScript from app
+		webView.addJavascriptInterface(new WebAppInterface(MainActivity.this),
+				"Android");
+		// handle user link clicks in thesame webview
+		webView.setWebViewClient(new WebViewClient());
+		WebSettings webSettings = webView.getSettings();
+		webSettings.setJavaScriptEnabled(true);
+		// webView.loadUrl("http://autostrada.z.dev.programa.pl/map");
 
+		// enable JavaScript
 
 		newQuestButton.setOnClickListener(new OnClickListener() {
 
@@ -158,63 +154,6 @@ public class MainActivity extends Activity {
 		final Timer myTimer = new Timer();
 		myTimer.schedule(myTask, App.MILISEC_MAP_REFRESH,
 				App.MILISEC_MAP_REFRESH);
-
-		// /LIST
-		questList = new ArrayList<Quest>();
-
-		Api.getQuests("{}", getApplicationContext(), new ApiCallback() {
-
-			@Override
-			public void onResponse(Object response, Integer status,
-					String message, Integer httpStatus) {
-				App.logv("sending something to api callback");; 
-				//if (httpStatus.equals(200)) {
-					try {
-						App.logv("try catch get quests RESPONESE: "
-								+ response.toString());
-						QuestList qList = new Gson().fromJson(
-								response.toString(), QuestList.class);
-						que = qList.getListQuests();
-						App.logv("QUEST length ------> " + que.length);
-
-					} catch (Exception e) {
-						App.logv("error parsing JSON ges Quests");
-					}
-					//ArraList values = new ArrayList();
-					String[] values = new String[que.length];
-					for (int i = 0; i < que.length; i++) {
-						questList.add(que[i]);
-						values[i] = que[i].getName();
-					}
-					list = new ArrayList<String>();
-					for (int i = 0; i < values.length; ++i) {
-						list.add(values[i]);
-					}
-				//}
-
-				listview.setVisibility(View.VISIBLE);
-
-				StableArrayAdapter adapter = new StableArrayAdapter(MainActivity.this,
-						android.R.layout.simple_list_item_1, list);
-				listview.setAdapter(adapter);
-
-				listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-					@Override
-					public void onItemClick(AdapterView<?> parent, final View view,
-							int position, long id) {
-						App.setQ(que[position]);
-						Toast.makeText(getApplicationContext(), "quest saved: " + id,
-								Toast.LENGTH_SHORT).show();
-						Intent qInfoIntent = new Intent(MainActivity.this,
-								QuestInfoActivity.class);
-						startActivity(qInfoIntent);
-					}
-
-				});
-			}
-		});
-
 
 	}
 
@@ -314,4 +253,66 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// /LIST
+		questList = new ArrayList<Quest>();
+
+		Api.getQuests("{}", getApplicationContext(), new ApiCallback() {
+
+			@Override
+			public void onResponse(Object response, Integer status,
+					String message, Integer httpStatus) {
+				App.logv("sending something to api callback");
+				;
+				// if (httpStatus.equals(200)) {
+				try {
+					App.logv("try catch get quests RESPONESE: "
+							+ response.toString());
+					QuestList qList = new Gson().fromJson(response.toString(),
+							QuestList.class);
+					que = qList.getListQuests();
+					App.logv("QUEST length ------> " + que.length);
+
+				} catch (Exception e) {
+					App.logv("error parsing JSON ges Quests");
+				}
+				// ArraList values = new ArrayList();
+				String[] values = new String[que.length];
+				for (int i = 0; i < que.length; i++) {
+					questList.add(que[i]);
+					values[i] = que[i].getName();
+				}
+				list = new ArrayList<String>();
+				for (int i = 0; i < values.length; ++i) {
+					list.add(values[i]);
+				}
+				// }
+
+				listview.setVisibility(View.VISIBLE);
+
+				StableArrayAdapter adapter = new StableArrayAdapter(
+						MainActivity.this, android.R.layout.simple_list_item_1,
+						list);
+				listview.setAdapter(adapter);
+
+				listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent,
+							final View view, int position, long id) {
+						App.setQ(que[position]);
+						Toast.makeText(getApplicationContext(),
+								"quest saved: " + id, Toast.LENGTH_SHORT)
+								.show();
+						Intent qInfoIntent = new Intent(MainActivity.this,
+								QuestInfoActivity.class);
+						startActivity(qInfoIntent);
+					}
+
+				});
+			}
+		});
+	}
 }
