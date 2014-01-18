@@ -2,12 +2,12 @@ package pl.programa.beerquest;
 
 import pl.programa.beerquest.api.Api;
 import pl.programa.beerquest.app.App;
-import pl.programa.beerquest.gcm.EventNotificationActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 
 public class GCMIntentService extends
 		com.google.android.gcm.GCMBaseIntentService {
@@ -35,34 +35,24 @@ public class GCMIntentService extends
 		String ns = Context.NOTIFICATION_SERVICE;
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
 
-		int icon = R.drawable.beer_icon;
-		int type = intent.getExtras().getInt("type");
+		int id = intent.getExtras().getInt("questid");
+		String body = intent.getExtras().getString("body");
 
-		CharSequence tickerText = "";
-		CharSequence contentTitle = "";
-		CharSequence contentText = "";
-		long when = System.currentTimeMillis();
-		Context context = getApplicationContext();
-
-		if (type == 1) {
-			tickerText = intent.getExtras().get("title").toString(); // ticker-text
-
-			contentTitle = "Zostałeś zaproszony na wydarzenie";
-			contentText = "";
-		}
 		Intent notificationIntent = new Intent(this,
 				EventNotificationActivity.class);
-		notificationIntent.putExtra("text", contentTitle);
-		notificationIntent.putExtra("title", contentTitle);
-		//notificationIntent.putExtra("body", intent.getExtras()
-		//		.getString("body"));
-		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		notificationIntent.addCategory(Intent.CATEGORY_HOME);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 				notificationIntent, 0);
-		Notification notification = new Notification(icon, tickerText, when);
-		notification.setLatestEventInfo(context, contentTitle, contentText,
-				contentIntent);
+
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+				this).setSmallIcon(R.drawable.beer_icon)
+				.setContentTitle("BeerQuest powiadamia!")
+				.setContentIntent(contentIntent).setContentText(body);
+		Notification notification = mBuilder.build();
+
+		notificationIntent.putExtra("questid", id);
+		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		notificationIntent.addCategory(Intent.CATEGORY_HOME);
+
 		notification.flags = notification.flags | Notification.FLAG_AUTO_CANCEL
 				| Notification.FLAG_SHOW_LIGHTS;
 		notification.defaults = Notification.DEFAULT_SOUND;

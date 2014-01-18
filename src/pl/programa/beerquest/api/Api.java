@@ -1,6 +1,5 @@
 package pl.programa.beerquest.api;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import org.apache.http.Header;
@@ -169,7 +168,7 @@ public class Api {
 
 	public static void questParticipate(int questId, Context appContext,
 			ApiCallback callback) {
-		String url = API + CONTROLLER_QUEST_INFO + ":" + questId + "/participate";
+		String url = API + CONTROLLER_QUEST_INFO + ":" + questId + "/join";
 		String json = "{}";
 		
 		HttpRequestBase request = preparePostRequest(appContext, url, json);

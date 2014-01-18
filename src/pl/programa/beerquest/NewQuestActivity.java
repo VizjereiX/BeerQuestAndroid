@@ -1,9 +1,6 @@
 package pl.programa.beerquest;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import pl.programa.beerquest.api.Api;
 import pl.programa.beerquest.api.ApiCallback;
@@ -58,7 +55,6 @@ public class NewQuestActivity extends Activity {
 				Quest quest = new Quest();
 				quest.setName(NewQuestActivity.this.questNameView.getText()
 						.toString());
-				SimpleDateFormat format = new SimpleDateFormat("d-M-yyyy H:m");
 
 				String str_date = NewQuestActivity.this.questDateView.getText()
 						.toString();
