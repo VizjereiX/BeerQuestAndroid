@@ -161,68 +161,6 @@ public class MainActivity extends Activity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true); 
         webView.loadUrl("https://maps.google.com/?t=h&ll=" + lat + "," + lng + "&t=h&z=16");
-
-<<<<<<< HEAD
-		// /LIST
-		questList = new ArrayList<Quest>();
-
-
-		Api.getQuests("{}", getApplicationContext(), new ApiCallback() {
-
-			@Override
-			public void onResponse(Object response, Integer status,
-					String message, Integer httpStatus) {
-				App.logv("sending something to api callback");; 
-				//if (httpStatus.equals(200)) {
-					try {
-						App.logv("try catch get quests RESPONESE: "
-								+ response.toString());
-						QuestList qList = new Gson().fromJson(
-								response.toString(), QuestList.class);
-						que = qList.getListQuests();
-						App.logv("QUEST length ------> " + que.length);
-
-					} catch (Exception e) {
-						App.logv("error parsing JSON ges Quests");
-					}
-					//ArraList values = new ArrayList();
-					String[] values = new String[que.length];
-					for (int i = 0; i < que.length; i++) {
-						questList.add(que[i]);
-						values[i] = que[i].getName();
-					}
-					list = new ArrayList<String>();
-					for (int i = 0; i < values.length; ++i) {
-						list.add(values[i]);
-					}
-				//}
-
-				listview.setVisibility(View.VISIBLE);
-
-				StableArrayAdapter adapter = new StableArrayAdapter(MainActivity.this,
-						android.R.layout.simple_list_item_1, list);
-				listview.setAdapter(adapter);
-
-				listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-					@Override
-					public void onItemClick(AdapterView<?> parent, final View view,
-							int position, long id) {
-						App.setQ(que[position]);
-						Toast.makeText(getApplicationContext(), "quest saved: " + id,
-								Toast.LENGTH_SHORT).show();
-						Intent qInfoIntent = new Intent(MainActivity.this,
-								QuestInfoActivity.class);
-						startActivity(qInfoIntent);
-					}
-
-				});
-			}
-		});
-
-
-=======
->>>>>>> f0b71a798df0efebbac07033fe61d4c1c9c28a64
 	}
 
 	private class StableArrayAdapter extends ArrayAdapter<String> {
