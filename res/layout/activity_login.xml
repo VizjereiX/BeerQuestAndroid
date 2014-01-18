@@ -30,45 +30,31 @@
 
     <!-- Login form -->
 
-    <ScrollView
-        android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <LinearLayout
+       <LinearLayout
             style="@style/LoginFormContainer"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:background="@drawable/intro_image" >
 
-            <ImageView
-                android:id="@+id/logo"
-                android:contentDescription="@string/app_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="30dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/logo" />
+
 		
 	      <LinearLayout
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:layout_marginTop="50dp"
+	            android:layout_marginTop="330dp"
+  	            android:layout_marginLeft="40dp"
+	            android:layout_gravity="center_vertical"
 	            android:gravity="bottom"
-	            android:orientation="vertical" >
-	            <Button
-	                android:id="@+id/apitest_button"
-	                style="@style/Button"
-	                android:layout_marginTop="50dp"
-	                android:text="api test" />	
+	            android:orientation="horizontal" >
+
 	            <Button
 	                android:id="@+id/login_button"
-	                style="@style/Button"
+	                android:gravity="center_vertical"
+	                android:layout_width="200dp"
+	                android:layout_height="70dp"
 	                android:layout_marginTop="50dp"
-	                android:text="@string/login_google" />
+     		       android:background="@drawable/signin_button"	                 />
 	        </LinearLayout>            
         </LinearLayout>
-    </ScrollView>
 
 </merge>

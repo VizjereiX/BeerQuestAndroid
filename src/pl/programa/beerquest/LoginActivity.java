@@ -49,7 +49,6 @@ ConnectionCallbacks, OnConnectionFailedListener{
 
 	/// UI references.
 	private Button loginButton;
-	private Button testApiButton;
 	
 
 	private View loginFormView;	
@@ -72,9 +71,7 @@ ConnectionCallbacks, OnConnectionFailedListener{
 		setContentView(R.layout.activity_login);
 				
 		loginButton = (Button) findViewById(R.id.login_button);
-		testApiButton = (Button) findViewById(R.id.apitest_button);
 		
-		loginFormView = findViewById(R.id.login_form);
 		loginStatusView = findViewById(R.id.login_status);
 		loginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
 		
@@ -94,7 +91,7 @@ ConnectionCallbacks, OnConnectionFailedListener{
 			@Override
 			public void onClick(View view) {
 				if(InternetHelper.getInternetInfo(getApplicationContext())){
-					showProgress(true);
+//					showProgress(true);
 	//				attemptLogin();
 					if (view.getId() == R.id.login_button && !mPlusClient.isConnected()) {
 				        if (mConnectionResult == null) {
@@ -114,27 +111,6 @@ ConnectionCallbacks, OnConnectionFailedListener{
 			}
 		});
 		
-		testApiButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Api.sendSomething("{someobj:{testapi:1}}", getApplicationContext(),new ApiCallback() {
-					@Override
-					public void onResponse(Object response, Integer status, String message, Integer httpStatus) {
-						App.logv("sending something to api callback");
-			            if(httpStatus.equals(200)){
-			            	try{
-				            	App.logv("try catch sendSomething RESPONESE: " + response.toString());
-					            JSONObject responseJson = (JSONObject) response;
-					            //TODO do sth with data;
-								Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
-			            	} catch(Exception e) {
-			            		App.logv("error parsing JSON");
-			            	}
-			            };
- 					}
-	    	    });
-			}
-		});	
 	}
 	
     @Override

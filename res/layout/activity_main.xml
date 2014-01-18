@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity" 
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg"
+    android:textColor="@color/defaultTextColor"
+    >
     
     <include layout="@layout/action_bar"/> 
 <LinearLayout
@@ -11,7 +14,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_alignParentBottom="true"    >
-    
+	<ScrollView
+	    android:id="@+id/main_scroll_view"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" >
+		<WebView
+		    android:id="@+id/main_web_view"
+		    android:layout_width="fill_parent"
+		    android:layout_height="180dp"
+		/>	
+	</ScrollView> 
             <TextView
                 android:id="@+id/loginLocked"
                 android:layout_width="match_parent"
@@ -19,11 +31,14 @@
                 android:layout_marginLeft="12dp"
                 android:textAppearance="@android:style/TextAppearance.Large"
                 android:textStyle="bold"
+    android:textColor="@color/defaultTextColor"                
                 android:text="Wyzwania"/>
 		<ListView
 		    android:id="@+id/listview"
 		    android:layout_width="wrap_content"
+		        android:textColor="@color/defaultTextColor"
 		    android:layout_height="250dp"
+		    android:background="@color/beer"
 		     />    
 </LinearLayout>		      
 </RelativeLayout>

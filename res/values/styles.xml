@@ -27,8 +27,7 @@
   
     <style name="Button">
         <item name="android:layout_height">50dp</item>
-        <item name="android:layout_width">280dp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_width">160dp</item>
         <item name="android:background">@color/beer</item> 
         <item name="android:textAppearance">@android:style/TextAppearance.Medium</item>                
         <item name="android:layout_gravity">center_horizontal</item>

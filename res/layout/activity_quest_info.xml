@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity" 
+        android:background="@drawable/bg">
 
     <ImageView
         android:visibility="visible"

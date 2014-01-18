@@ -8,10 +8,12 @@ import java.util.TimerTask;
 
 import org.json.JSONObject;
 
+
 import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.plus.PlusClient;
+
 
 import pl.programa.beerquest.api.Api;
 import pl.programa.beerquest.api.ApiCallback;
@@ -39,6 +41,9 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -55,7 +60,8 @@ public class MainActivity extends Activity {
 	ArrayList<Quest> questList;	
 	ArrayList<String> list;
 	ListView listview;
-
+	WebView webView;
+	
 	public static final String SENDER_ID = "461172195817";
 
 	@Override
@@ -89,6 +95,22 @@ public class MainActivity extends Activity {
 				authorize();
 			}
 		});
+
+        
+        //init webview
+        webView = (WebView) findViewById(R.id.main_web_view);
+        webView.setWebViewClient(new WebViewClient());
+        //enable control JavaScript from app
+        webView.addJavascriptInterface(new WebAppInterface(MainActivity.this), "Android");
+        //handle user link clicks in thesame webview
+        webView.setWebViewClient(new WebViewClient());
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true); 
+//        webView.loadUrl("http://autostrada.z.dev.programa.pl/map");
+        
+        //enable JavaScript
+   
+
 
 		newQuestButton.setOnClickListener(new OnClickListener() {
 
