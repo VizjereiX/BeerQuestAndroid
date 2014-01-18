@@ -7,6 +7,8 @@
 	<classpathentry exported="true" kind="lib" path="libs/google-play-services.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gson.jar"/>
 	<classpathentry kind="lib" path="libs/itraffApi_v2.jar"/>
+	<classpathentry kind="lib" path="libs/gcm-src.jar"/>
+	<classpathentry kind="lib" path="libs/gcm.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>
