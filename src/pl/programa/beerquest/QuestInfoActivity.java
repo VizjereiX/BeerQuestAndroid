@@ -45,7 +45,11 @@ public class QuestInfoActivity extends Activity {
 		participants = (TextView) findViewById(R.id.quest_info_participants);
 		confirmButton = (Button) findViewById(R.id.quest_info_confirm_btn);
 		recognizeBtn = (Button) findViewById(R.id.quest_info_recognize_btn);
-		
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
 		confirmButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -121,6 +125,10 @@ public class QuestInfoActivity extends Activity {
 			} else {
 				confirmButton.setVisibility(View.GONE);
 			}
+			for (int i = 0; i < quest.getMembers().length; i++) {
+				
+			}
+			recognizeBtn.setVisibility(View.VISIBLE);
 		}
 	}
 
