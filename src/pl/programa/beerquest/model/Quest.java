@@ -6,12 +6,12 @@ import com.google.gson.Gson;
 
 public class Quest {
 
-	int id;
+	int questid;
 	String name;
-	int startTs;
+	String startts;
 	int type = 1;
-	int minGuests = 1;
-	int confirmTs;
+	int minguests = 1;
+	String confirmts;
 	String status;
 	boolean participate;
 	String[] members = {};
@@ -26,20 +26,20 @@ public class Quest {
 	 */
 	public Quest() {
 		name = "Quest_" + new Random().nextInt(10000);
-		startTs = 1390075200 + new Random().nextInt(100);
-		confirmTs = 1390071600 + new Random().nextInt(100);
-		minGuests = 2;
+		startts = "18-01-2014 18:00";
+		confirmts = "18-01-2014 15:00";
+		minguests = 2;
 	}
 
-	public Quest(int id, String name, int startTs, int type, int minGuests,
-			int confirmTs, String status, boolean participate) {
+	public Quest(int id, String name, String startTs, int type, int minGuests,
+			String confirmTs, String status, boolean participate) {
 		super();
-		this.id = id;
+		this.questid = id;
 		this.name = name;
-		this.startTs = startTs;
+		this.startts = startTs;
 		this.type = type;
-		this.minGuests = minGuests;
-		this.confirmTs = confirmTs;
+		this.minguests = minGuests;
+		this.confirmts = confirmTs;
 		this.status = status;
 		this.participate = participate;
 	}
@@ -68,40 +68,26 @@ public class Quest {
 		this.participate = participate;
 	}
 
-	public int getStartTs() {
-		return startTs;
-	}
-
-	public void setStartTs(int startTs) {
-		this.startTs = startTs;
-	}
 
 	public int getType() {
 		return type;
 	}
 
 	public int getMinGuests() {
-		return minGuests;
+		return minguests;
 	}
 
 	public void setMinGuests(int minGuests) {
-		this.minGuests = minGuests;
+		this.minguests = minGuests;
 	}
 
-	public int getConfirmTs() {
-		return confirmTs;
-	}
-
-	public void setConfirmTs(int confirmTs) {
-		this.confirmTs = confirmTs;
-	}
  
 	public void setId(int id) {
-		this.id = id;
+		this.questid = id;
 	}
 
 	public int getId() {
-		return this.id;
+		return this.questid;
 	}
 
 	public static Quest  fromJson(String json) {
@@ -114,5 +100,21 @@ public class Quest {
 	
 	public void setMembers(String[] members) {
 		this.members = members;
+	}
+
+	public String getStartTs() {
+		return startts;
+	}
+
+	public void setStartTs(String startTs) {
+		this.startts = startTs;
+	}
+
+	public String getConfirmTs() {
+		return confirmts;
+	}
+
+	public void setConfirmTs(String confirmTs) {
+		this.confirmts = confirmTs;
 	}
 }
