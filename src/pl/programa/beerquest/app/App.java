@@ -7,6 +7,7 @@ import com.google.android.gms.common.Scopes;
 import com.google.android.gms.plus.PlusClient;
 
 import pl.programa.beerquest.LoginActivity;
+import pl.programa.beerquest.model.Quest;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +32,17 @@ public class App extends Application {
 	 * instance of App
 	 */
 	private static App instance;
+	
+	private static Quest q;
+	
+	public static Quest setQ(Quest quest){
+		q = quest;
+		return q;
+	}
+	
+	public static Quest getQ(){
+		return q;
+	}
 
 	public App() {
 		instance = this;
