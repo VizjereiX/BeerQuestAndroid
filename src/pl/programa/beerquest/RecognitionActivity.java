@@ -73,12 +73,13 @@ public class RecognitionActivity extends Activity {
 						@Override
 						public void onResponse(Object response, Integer status, String message,
 								Integer httpStatus) {
+							anim.stop();
 							if (status == 0  || status == 200) {
-								Toast.makeText(App.getContext(), beerName + " padł pod Twymi ciosami!", Toast.LENGTH_SHORT).show();
+								Toast.makeText(App.getContext(), beerName.trim() + " padł pod Twymi ciosami!", Toast.LENGTH_SHORT).show();
+								RecognitionActivity.this.finish();
 							} else {
 								Toast.makeText(App.getContext(), message, Toast.LENGTH_SHORT).show();
 							}
-							anim.stop();
 						}
 					};
 					Api.recognize(beerJson, App.getContext(), callback);

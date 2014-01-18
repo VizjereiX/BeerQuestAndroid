@@ -328,6 +328,7 @@ containing a value of this type.
         public static final int actionBar=0x7f060005;
         public static final int actionBarLogout=0x7f060006;
         public static final int actionBarNewQuest=0x7f060007;
+<<<<<<< HEAD
         public static final int action_settings=0x7f060029;
         public static final int alertTitle=0x7f060024;
         public static final int bg=0x7f060016;
@@ -367,6 +368,46 @@ containing a value of this type.
         public static final int titleDivider=0x7f060025;
         public static final int title_template=0x7f060022;
         public static final int topPanel=0x7f060021;
+=======
+        public static final int action_settings=0x7f060028;
+        public static final int alertTitle=0x7f060023;
+        public static final int bg=0x7f060015;
+        public static final int buttonNewQuest=0x7f060014;
+        public static final int contentPanel=0x7f060025;
+        public static final int customPanel=0x7f060027;
+        public static final int hybrid=0x7f060004;
+        public static final int icon=0x7f060022;
+        public static final int listview=0x7f06000e;
+        public static final int loginLocked=0x7f06000d;
+        public static final int login_button=0x7f06000a;
+        public static final int login_status=0x7f060008;
+        public static final int login_status_message=0x7f060009;
+        public static final int main_scroll_view=0x7f06000b;
+        public static final int main_web_view=0x7f06000c;
+        public static final int message=0x7f060026;
+        public static final int newQuest_confirmTime=0x7f060013;
+        public static final int newQuest_minTeamSize=0x7f060012;
+        public static final int newQuest_name=0x7f06000f;
+        public static final int newQuest_startDate=0x7f060010;
+        public static final int newQuest_startTime=0x7f060011;
+        public static final int none=0x7f060000;
+        public static final int normal=0x7f060001;
+        public static final int parentPanel=0x7f06001f;
+        public static final int quest_info_acceptTime=0x7f06001b;
+        public static final int quest_info_confirm_btn=0x7f06001c;
+        public static final int quest_info_layout=0x7f060016;
+        public static final int quest_info_participants=0x7f06001a;
+        public static final int quest_info_recognize_btn=0x7f06001d;
+        public static final int quest_info_startDate=0x7f060018;
+        public static final int quest_info_status=0x7f060019;
+        public static final int quest_info_title=0x7f060017;
+        public static final int recognize_bg=0x7f06001e;
+        public static final int satellite=0x7f060002;
+        public static final int terrain=0x7f060003;
+        public static final int titleDivider=0x7f060024;
+        public static final int title_template=0x7f060021;
+        public static final int topPanel=0x7f060020;
+>>>>>>> f0b71a798df0efebbac07033fe61d4c1c9c28a64
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;
