@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.json.JSONObject;
+
 import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.plus.PlusClient;
 
 import pl.programa.beerquest.api.Api;
+import pl.programa.beerquest.api.ApiCallback;
 import pl.programa.beerquest.app.App;
 import pl.programa.beerquest.model.Quest;
 
@@ -128,9 +131,28 @@ public class MainActivity extends Activity {
 				App.MILISEC_MAP_REFRESH);
 		
 		///LIST
-		 final ListView listview = (ListView) findViewById(R.id.listview);
-		 
 		final ArrayList<Quest> questList = new ArrayList<Quest>();
+		
+		Api.getQuests("{}", getApplicationContext(),new ApiCallback() {
+			@Override
+			public void onResponse(Object response, Integer status, String message, Integer httpStatus) {
+				App.logv("sending something to api callback");
+	            if(httpStatus.equals(200)){
+	            	try{
+		            	App.logv("try catch get quests RESPONESE: " + response.toString());
+			            JSONObject responseJson = (JSONObject) response;
+			            //TODO do sth with data;
+						Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+						
+						
+	            	} catch(Exception e) {
+	            		App.logv("error parsing JSON ges Quests");
+	            	}
+	            };
+				}
+	    });		
+		final ListView listview = (ListView) findViewById(R.id.listview);
+		 
 	 	String[] values = new String[10];
 	 	for(int i = 0; i<10 ; i++){
 	 		Quest q = new Quest();

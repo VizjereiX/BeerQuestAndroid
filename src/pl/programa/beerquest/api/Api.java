@@ -1,5 +1,6 @@
 package pl.programa.beerquest.api;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.apache.http.Header;
@@ -56,6 +57,12 @@ public class Api {
 				callback);
 	}
 
+	public static void getQuests(String name, Context appContext, ApiCallback callback) {
+		String url = API + CONTROLLER_QUEST;
+		HttpRequestBase request = preparePostRequest(appContext, url, "{}");
+		ApiAsyncTask apiAsyncTask = new ApiAsyncTask(request, callback);
+		apiAsyncTask.execute();
+	}
 
 	public static void login(String name, Context appContext, ApiCallback callback) {
 		String token = App.getDeviceId(appContext);
