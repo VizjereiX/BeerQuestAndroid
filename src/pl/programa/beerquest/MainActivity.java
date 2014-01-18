@@ -131,7 +131,7 @@ public class MainActivity extends Activity {
 				App.MILISEC_MAP_REFRESH);
 		
 		///LIST
-		final ArrayList<Quest> questList = new ArrayList<Quest>();
+		ArrayList<Quest> questList = new ArrayList<Quest>();
 		
 		Api.getQuests("{}", getApplicationContext(),new ApiCallback() {
 			@Override
@@ -141,7 +141,7 @@ public class MainActivity extends Activity {
 	            	try{
 		            	App.logv("try catch get quests RESPONESE: " + response.toString());
 			            JSONObject responseJson = (JSONObject) response;
-			            //TODO do sth with data;
+//			            Quest quesArray[] = Quest 
 						Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
 						
 						
