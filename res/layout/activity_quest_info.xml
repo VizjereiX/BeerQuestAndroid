@@ -35,7 +35,7 @@
             android:id="@+id/quest_info_startDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medium Text"
+            android:visibility="gone"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView

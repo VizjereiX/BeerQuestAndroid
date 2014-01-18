@@ -33,6 +33,7 @@ import com.google.gson.Gson;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
@@ -55,6 +56,7 @@ public class MainActivity extends Activity {
 	double lat;
 	double lng;
 	Button logoutButton;
+	Button navButton;
 	PlusClient mPlusClient;
 	Quest[] que;
 	ArrayList<Quest> questList;	
@@ -93,6 +95,14 @@ public class MainActivity extends Activity {
 				}
 				getApp().setLoggedIn(false);
 				authorize();
+			}
+		});
+		
+		navButton = (Button) findViewById(R.id.nav);
+		navButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=Poznan+PL")); startActivity(i);
 			}
 		});
 
@@ -163,6 +173,7 @@ public class MainActivity extends Activity {
 
 		// /LIST
 		questList = new ArrayList<Quest>();
+
 
 		Api.getQuests("{}", getApplicationContext(), new ApiCallback() {
 
