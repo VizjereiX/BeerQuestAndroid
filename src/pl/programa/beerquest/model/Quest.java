@@ -8,10 +8,10 @@ public class Quest {
 
 	int questid;
 	String name;
-	String startTs;
+	String startts;
 	int type = 1;
-	int minGuests = 1;
-	String confirmTs;
+	int minguests = 1;
+	String confirmts;
 	String status;
 	boolean participate;
 	String[] members = {};
@@ -26,9 +26,9 @@ public class Quest {
 	 */
 	public Quest() {
 		name = "Quest_" + new Random().nextInt(10000);
-		startTs = "18-01-2014 18:00";
-		confirmTs = "18-01-2014 15:00";
-		minGuests = 2;
+		startts = "18-01-2014 18:00";
+		confirmts = "18-01-2014 15:00";
+		minguests = 2;
 	}
 
 	public Quest(int id, String name, String startTs, int type, int minGuests,
@@ -36,10 +36,10 @@ public class Quest {
 		super();
 		this.questid = id;
 		this.name = name;
-		this.startTs = startTs;
+		this.startts = startTs;
 		this.type = type;
-		this.minGuests = minGuests;
-		this.confirmTs = confirmTs;
+		this.minguests = minGuests;
+		this.confirmts = confirmTs;
 		this.status = status;
 		this.participate = participate;
 	}
@@ -74,11 +74,11 @@ public class Quest {
 	}
 
 	public int getMinGuests() {
-		return minGuests;
+		return minguests;
 	}
 
 	public void setMinGuests(int minGuests) {
-		this.minGuests = minGuests;
+		this.minguests = minGuests;
 	}
 
  
@@ -103,18 +103,18 @@ public class Quest {
 	}
 
 	public String getStartTs() {
-		return startTs;
+		return startts;
 	}
 
 	public void setStartTs(String startTs) {
-		this.startTs = startTs;
+		this.startts = startTs;
 	}
 
 	public String getConfirmTs() {
-		return confirmTs;
+		return confirmts;
 	}
 
 	public void setConfirmTs(String confirmTs) {
-		this.confirmTs = confirmTs;
+		this.confirmts = confirmTs;
 	}
 }

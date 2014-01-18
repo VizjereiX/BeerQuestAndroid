@@ -1,12 +1,11 @@
 package pl.programa.beerquest;
 
-import java.text.SimpleDateFormat;
-
 import pl.programa.beerquest.api.Api;
 import pl.programa.beerquest.api.ApiCallback;
 import pl.programa.beerquest.app.App;
 import pl.programa.beerquest.model.Quest;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -45,7 +44,9 @@ public class NewQuestActivity extends Activity {
 							Toast.makeText(App.getContext(),
 									"Towarzysze powiadomieni!",
 									Toast.LENGTH_SHORT).show();
-							App.logv(response + "");
+							Intent intent = new Intent(NewQuestActivity.this, QuestInfoActivity.class);
+							NewQuestActivity.this.startActivity(intent);
+							NewQuestActivity.this.finish();
 						} else {
 							Toast.makeText(App.getContext(), message,
 									Toast.LENGTH_SHORT).show();

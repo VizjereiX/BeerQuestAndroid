@@ -45,19 +45,20 @@ public class QuestInfoActivity extends Activity {
 		participants = (TextView) findViewById(R.id.quest_info_participants);
 		confirmButton = (Button) findViewById(R.id.quest_info_confirm_btn);
 		recognizeBtn = (Button) findViewById(R.id.quest_info_recognize_btn);
-		
+
 		confirmButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				QuestInfoActivity.this.confirmParticipation();
 			}
 		});
-		
+
 		recognizeBtn.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(App.getContext(), RecognitionActivity.class);
+				Intent intent = new Intent(App.getContext(),
+						RecognitionActivity.class);
 				QuestInfoActivity.this.startActivity(intent);
 			}
 		});
@@ -67,15 +68,9 @@ public class QuestInfoActivity extends Activity {
 			@Override
 			public void onResponse(Object response, Integer status,
 					String message, Integer httpStatus) {
-				if (status == 0 || status == 200) {
-					Quest quest = Quest.fromJson(response.toString());
-					App.logv("quest: " + response.toString());
-					QuestInfoActivity.this.showQuest(quest);
-				} else {
-					Toast.makeText(App.getContext(), message,
-							Toast.LENGTH_SHORT).show();
-					finish();
-				}
+				Toast.makeText(App.getContext(), "Wysyłam posłańców!",
+						Toast.LENGTH_SHORT).show();
+				finish();
 			}
 		};
 		Api.questInfo(App.getQ().getId(), App.getContext(), callback);
@@ -87,7 +82,8 @@ public class QuestInfoActivity extends Activity {
 			@Override
 			public void onResponse(Object response, Integer status,
 					String message, Integer httpStatus) {
-				Intent intent = new Intent(App.getContext(), QuestInfoActivity.class);
+				Intent intent = new Intent(App.getContext(),
+						QuestInfoActivity.class);
 				QuestInfoActivity.this.startActivity(intent);
 				QuestInfoActivity.this.finish();
 			}
@@ -109,7 +105,7 @@ public class QuestInfoActivity extends Activity {
 		} else {
 			startDate.setText("Drużyna wyruszy " + quest.getStartTs());
 			if (quest.getStatus().equalsIgnoreCase(Quest.STATUS_NEW)) {
-				confirmDate.setText("jeśli do " + quest.getConfirmTs() 
+				confirmDate.setText("jeśli do " + quest.getConfirmTs()
 						+ " zbierze się " + quest.getMinGuests() + " osób");
 				confirmDate.setVisibility(View.VISIBLE);
 				participants.setText("Aktualny stan potwierdzeń: "
