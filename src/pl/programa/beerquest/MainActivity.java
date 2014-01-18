@@ -13,6 +13,7 @@ import com.google.android.gms.plus.PlusClient;
 
 import pl.programa.beerquest.api.Api;
 import pl.programa.beerquest.app.App;
+import pl.programa.beerquest.model.Quest;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -128,25 +129,30 @@ public class MainActivity extends Activity {
 		
 		///LIST
 		 final ListView listview = (ListView) findViewById(R.id.listview);
-		    String[] values = new String[] { "event 1", "event 2", "event 3" };
+		 
+		 
+	 	String[] values = new String[10];
+	 	for(int i = 0; i<10 ; i++){
+	 		Quest q = new Quest();
+	 		values[i] = q.getName();
+	 	}
+	    final ArrayList<String> list = new ArrayList<String>();
+	    for (int i = 0; i < values.length; ++i) {
+	      list.add(values[i]);
+	    }
+	    final StableArrayAdapter adapter = new StableArrayAdapter(this,
+	        android.R.layout.simple_list_item_1, list);
+	    listview.setAdapter(adapter);
 
-		    final ArrayList<String> list = new ArrayList<String>();
-		    for (int i = 0; i < values.length; ++i) {
-		      list.add(values[i]);
-		    }
-		    final StableArrayAdapter adapter = new StableArrayAdapter(this,
-		        android.R.layout.simple_list_item_1, list);
-		    listview.setAdapter(adapter);
+	    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-		    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+	      @Override
+	      public void onItemClick(AdapterView<?> parent, final View view,
+	          int position, long id) {
+	    	  //do sth onClick
+	      }
 
-		      @Override
-		      public void onItemClick(AdapterView<?> parent, final View view,
-		          int position, long id) {
-		    	  //do sth onClick
-		      }
-
-		    });
+	    });
 
 	}
 	

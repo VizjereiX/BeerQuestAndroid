@@ -6,12 +6,24 @@
     android:orientation="vertical">
     
     <include layout="@layout/action_bar"/> 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_alignParentBottom="true"    >
     
-<ListView
-    android:id="@+id/listview"
-    android:layout_width="wrap_content"
-    android:layout_height="300dp"
-	android:layout_alignParentBottom="true"
-     />     
+            <TextView
+                android:id="@+id/loginLocked"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textStyle="bold"
+                android:text="Wyzwania"/>
+		<ListView
+		    android:id="@+id/listview"
+		    android:layout_width="wrap_content"
+		    android:layout_height="250dp"
+		     />    
+</LinearLayout>		      
 </RelativeLayout>
