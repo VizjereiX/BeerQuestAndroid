@@ -17,6 +17,7 @@ import pl.programa.beerquest.api.Api;
 import pl.programa.beerquest.api.ApiCallback;
 import pl.programa.beerquest.app.App;
 import pl.programa.beerquest.model.Quest;
+import pl.programa.beerquest.model.QuestList;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 
 import android.location.Location;
 import android.location.LocationListener;
@@ -49,23 +51,28 @@ public class MainActivity extends Activity {
 	double lng;
 	Button logoutButton;
 	PlusClient mPlusClient;
-	
+	Quest[] que;
+	ArrayList<Quest> questList;	
+	ArrayList<String> list;
+	ListView listview;
+
 	public static final String SENDER_ID = "461172195817";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		App.logv("Main activity on create"); 
+		App.logv("Main activity on create");
 		super.onCreate(savedInstanceState);
 
 		// get G+ client
 		mPlusClient = App.getMPlusClient();
-		if(mPlusClient == null){
-		    getApp().setLoggedIn(false);
-		    //authorize();
+		if (mPlusClient == null) {
+			getApp().setLoggedIn(false);
+			// authorize();
 		}
 
 		setContentView(R.layout.activity_main);
-
+		listview = (ListView) findViewById(R.id.listview);
+		listview.setVisibility(View.GONE);
 		// init logout
 		logoutButton = (Button) findViewById(R.id.actionBarLogout);
 		Button newQuestButton = (Button) findViewById(R.id.actionBarNewQuest);
@@ -83,12 +90,12 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		
 		newQuestButton.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this, NewQuestActivity.class);
+				Intent intent = new Intent(MainActivity.this,
+						NewQuestActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -129,81 +136,92 @@ public class MainActivity extends Activity {
 		final Timer myTimer = new Timer();
 		myTimer.schedule(myTask, App.MILISEC_MAP_REFRESH,
 				App.MILISEC_MAP_REFRESH);
-		
-		///LIST
-		ArrayList<Quest> questList = new ArrayList<Quest>();
-		
-		Api.getQuests("{}", getApplicationContext(),new ApiCallback() {
+
+		// /LIST
+		questList = new ArrayList<Quest>();
+
+		Api.getQuests("{}", getApplicationContext(), new ApiCallback() {
+
 			@Override
-			public void onResponse(Object response, Integer status, String message, Integer httpStatus) {
+			public void onResponse(Object response, Integer status,
+					String message, Integer httpStatus) {
 				App.logv("sending something to api callback");
-	            if(httpStatus.equals(200)){
-	            	try{
-		            	App.logv("try catch get quests RESPONESE: " + response.toString());
-			            JSONObject responseJson = (JSONObject) response;
-//			            Quest quesArray[] = Quest 
-						Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
-						
-						
-	            	} catch(Exception e) {
-	            		App.logv("error parsing JSON ges Quests");
-	            	}
-	            };
-				}
-	    });		
-		final ListView listview = (ListView) findViewById(R.id.listview);
-		 
-	 	String[] values = new String[10];
-	 	for(int i = 0; i<10 ; i++){
-	 		Quest q = new Quest();
-	 		questList.add(q);
-	 		values[i] = q.getName();
-	 	}
-	    final ArrayList<String> list = new ArrayList<String>();
-	    for (int i = 0; i < values.length; ++i) {
-	      list.add(values[i]);
-	    }
-	    final StableArrayAdapter adapter = new StableArrayAdapter(this,
-	        android.R.layout.simple_list_item_1, list);
-	    listview.setAdapter(adapter);
+				//if (httpStatus.equals(200)) {
+					try {
+						App.logv("try catch get quests RESPONESE: "
+								+ response.toString());
+						QuestList qList = new Gson().fromJson(
+								response.toString(), QuestList.class);
+						que = qList.getListQuests();
+						App.logv("QUEST length ------> " + que.length);
 
-	    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+						Toast.makeText(getApplicationContext(),
+								response.toString(), Toast.LENGTH_SHORT).show();
 
-	      @Override
-	      public void onItemClick(AdapterView<?> parent, final View view,
-	          int position, long id) {
-	    	  Toast.makeText(getApplicationContext(), "" + id, Toast.LENGTH_SHORT).show();
-	      }
+					} catch (Exception e) {
+						App.logv("error parsing JSON ges Quests");
+					}
+					String[] values = new String[10];
+					for (int i = 0; i < que.length; i++) {
+						questList.add(que[i]);
+						values[i] = que[i].getName();
+					}
+					list = new ArrayList<String>();
+					for (int i = 0; i < values.length; ++i) {
+						list.add(values[i]);
+					}
+				//}
 
-	    });
+				listview.setVisibility(View.VISIBLE);
+
+				StableArrayAdapter adapter = new StableArrayAdapter(MainActivity.this,
+						android.R.layout.simple_list_item_1, list);
+				listview.setAdapter(adapter);
+
+				listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, final View view,
+							int position, long id) {
+						App.setQ(que[position]);
+						Toast.makeText(getApplicationContext(), "quest saved: " + id,
+								Toast.LENGTH_SHORT).show();
+						Intent qInfoIntent = new Intent(MainActivity.this,
+								QuestInfoActivity.class);
+						startActivity(qInfoIntent);
+					}
+
+				});
+			}
+		});
+
 
 	}
-	
-	  private class StableArrayAdapter extends ArrayAdapter<String> {
 
-		    HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+	private class StableArrayAdapter extends ArrayAdapter<String> {
 
-		    public StableArrayAdapter(Context context, int textViewResourceId,
-		        List<String> objects) {
-		      super(context, textViewResourceId, objects);
-		      for (int i = 0; i < objects.size(); ++i) {
-		        mIdMap.put(objects.get(i), i);
-		      }
-		    }
+		HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
 
-		    @Override
-		    public long getItemId(int position) {
-		      String item = getItem(position);
-		      return mIdMap.get(item);
-		    }
+		public StableArrayAdapter(Context context, int textViewResourceId,
+				List<String> objects) {
+			super(context, textViewResourceId, objects);
+			for (int i = 0; i < objects.size(); ++i) {
+				mIdMap.put(objects.get(i), i);
+			}
+		}
 
-		    @Override
-		    public boolean hasStableIds() {
-		      return true;
-		    }
+		@Override
+		public long getItemId(int position) {
+			String item = getItem(position);
+			return mIdMap.get(item);
+		}
 
-		  }
+		@Override
+		public boolean hasStableIds() {
+			return true;
+		}
 
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -263,7 +281,7 @@ public class MainActivity extends Activity {
 	private App getApp() {
 		return (App) getApplicationContext();
 	}
-	
+
 	private void registerToGCM() {
 		if (Build.VERSION.SDK_INT >= 8) {
 			GCMRegistrar.checkDevice(this);

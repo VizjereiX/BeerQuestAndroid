@@ -46,28 +46,16 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 		App.logv(response.toString());
 		Object data = null;
 		try {
-			Integer status = response.getInt(Api.STATUS);
-			if (status == 0) {
-				try {
-					data = response.getJSONArray(Api.DATA);
-					App.logv(data.toString());
-				} catch (Exception e) {
-					data = response.getJSONObject(Api.DATA);
-				}
+//			Integer status = response.getInt(Api.STATUS);
+//			if (status = 0) {
 				if (callback != null)
-					callback.onResponse(data, status, "", httpStatus);
-			} else {
-				// ERROR, get message
-				String message = response.getString(Api.MESSAGE);
-				if (callback != null)
-					callback.onResponse(null, status, message, httpStatus);
-			}
-		} catch (JSONException e) {
-			App.logv("JSON COUNTER RESPONSE: " + response);
-			e.printStackTrace();
-			App.logv(e.toString());
-			if (callback != null)
-				callback.onResponse(null, -1, ERROR_PARSE, httpStatus);
+					callback.onResponse(response, 0, "", httpStatus);
+//			} else {
+//				// ERROR, get message
+//				String message = response.getString(Api.MESSAGE);
+//				if (callback != null)
+//					callback.onResponse(null, status, message, httpStatus);
+//			}
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			App.logv(data + " Null pointer exception: " + e.toString());
