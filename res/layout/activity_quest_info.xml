@@ -41,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Medium Text"
+            android:visibility="gone"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -55,13 +56,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Medium Text"
+            android:visibility="gone"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Button
             android:id="@+id/quest_info_confirm_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="Macie mój miecz!" />
+        
+        <Button
+            android:id="@+id/quest_info_recognize_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="Podejmuje weyzwanie!" />
 
     </LinearLayout>
 

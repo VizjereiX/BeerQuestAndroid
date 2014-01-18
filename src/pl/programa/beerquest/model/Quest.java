@@ -14,6 +14,7 @@ public class Quest {
 	int confirmTs;
 	String status;
 	boolean participate;
+	String[] members = {};
 	
 	public static final String STATUS_NEW = "new";
 	public static final String STATUS_CONFIRMED = "confirmed";
@@ -94,7 +95,7 @@ public class Quest {
 	public void setConfirmTs(int confirmTs) {
 		this.confirmTs = confirmTs;
 	}
-
+ 
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -105,5 +106,13 @@ public class Quest {
 
 	public static Quest  fromJson(String json) {
 		return new Gson().fromJson(json, Quest.class);
+	}
+	
+	public String[] getMembers() {
+		return this.members;
+	}
+	
+	public void setMembers(String[] members) {
+		this.members = members;
 	}
 }
