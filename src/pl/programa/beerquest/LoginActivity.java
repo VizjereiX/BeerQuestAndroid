@@ -1,6 +1,8 @@
 package pl.programa.beerquest;
 
 
+import java.io.IOException;
+
 import org.json.JSONObject;
 
 import pl.programa.beerquest.api.Api;
@@ -15,6 +17,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +25,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.GoogleAuthException;
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -49,6 +55,8 @@ ConnectionCallbacks, OnConnectionFailedListener{
 	private View loginFormView;	
 	private View loginStatusView;
 	private TextView loginStatusMessageView;
+	  String sAccessToken;
+	  String scopes;
 	
 
 	/**
@@ -166,7 +174,54 @@ ConnectionCallbacks, OnConnectionFailedListener{
 		getApp().setLoggedIn(true);
 	 // We've resolved any connection errors.
 	  mConnectionProgressDialog.dismiss();
-	  Api.login(mPlusClient.getAccountName(), getApplicationContext(),new ApiCallback() {
+
+	  try{
+		  scopes = "oauth2:server:client_id:461172195817-6slbm1kvf3vhks8mm5huv2h6fcaao5u0.apps.googleusercontent.com:api_scope:" 
+	   +    "https://www.googleapis.com/auth/plus.login";
+//		  sAccessToken = GoogleAuthUtil.getToken(LoginActivity.this, mPlusClient.getAccountName(),scopes);
+		  App.logv("SCOPE " + scopes);
+		  
+		  
+		  AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
+	            @Override
+	            protected String doInBackground(Void... params) {
+
+	                try {
+	                	sAccessToken = GoogleAuthUtil.getToken(
+	                            LoginActivity.this,
+	                            mPlusClient.getAccountName(),
+	                            scopes);
+	                } catch (IOException transientEx) {
+	                    // Network or server error, try later
+	                    App.logv("111111" + transientEx.toString());
+	                } catch (UserRecoverableAuthException e) {
+	                    // Recover (with e.getIntent())
+	                    App.logv("22222222" + e.toString());
+	                } catch (GoogleAuthException authEx) {
+	                    // The call is not ever expected to succeed
+	                    // assuming you have already verified that 
+	                    // Google Play services is installed.
+	                    App.logv("333333333" + authEx.toString());
+	                }
+
+	                return sAccessToken;
+	            }
+
+	            @Override
+	            protected void onPostExecute(String token) {
+	               App.logv("Access token retrieved:" + token);
+	            }
+
+	        };
+	        task.execute();		  
+		  
+		  
+		  
+	  } catch(Exception e){
+		  App.logv("exception get google token " + e.getMessage());
+	  }
+	  App.logv("ACCESS_TOKEN " + sAccessToken);
+		Api.login(mPlusClient.getAccountName(), sAccessToken, getApplicationContext(),new ApiCallback() {
 			@Override
 			public void onResponse(Object response, Integer status, String message, Integer httpStatus) {
 				App.logv("sending login to api callback");
