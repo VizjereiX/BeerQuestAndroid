@@ -1,6 +1,7 @@
 package pl.programa.beerquest.app;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.plus.PlusClient;
@@ -255,6 +256,26 @@ public class App extends Application {
 	public static void loge(String message) {
 		if (DEBUG_LVL >= 1 && message != null)
 			Log.v(TAG, message);
+	}
+	
+	/*
+	 * Unique DEVICE ID
+	 */
+	private static String uniqueID = null;
+	private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
+
+	public synchronized static String getDeviceId(Context context) {
+		if (uniqueID == null) {
+			SharedPreferences sharedPrefs = context.getSharedPreferences(PREF_UNIQUE_ID, Context.MODE_PRIVATE);
+			uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
+			if (uniqueID == null) {
+				uniqueID = UUID.randomUUID().toString();
+				Editor editor = sharedPrefs.edit();
+				editor.putString(PREF_UNIQUE_ID, uniqueID);
+				editor.commit();
+			}
+		}
+		return uniqueID;
 	}
 	
 }
