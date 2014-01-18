@@ -123,11 +123,7 @@ public class MainActivity extends Activity {
 		
 		///LIST
 		 final ListView listview = (ListView) findViewById(R.id.listview);
-		    String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-		        "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-		        "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-		        "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-		        "Android", "iPhone", "WindowsMobile" };
+		    String[] values = new String[] { "event 1", "event 2", "event 3" };
 
 		    final ArrayList<String> list = new ArrayList<String>();
 		    for (int i = 0; i < values.length; ++i) {
